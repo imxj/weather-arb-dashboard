@@ -1,10 +1,17 @@
 {
-  "last_updated": "2026-04-12T14:00:00Z",
+  "last_updated": "2026-04-12T14:40:00Z",
   "starting_capital": 19.68,
   "current_balance": 8.79,
   "total_pnl": -6.64,
   "win_rate": "0/4 (0%)",
   "pending_trades": 4,
+  "portfolio_history": [
+    {"date": "2026-04-08", "cash": 19.68, "positions_value": 0, "total": 19.68},
+    {"date": "2026-04-09", "cash": 16.64, "positions_value": 1.50, "total": 18.14},
+    {"date": "2026-04-10", "cash": 16.64, "positions_value": 0.80, "total": 17.44},
+    {"date": "2026-04-11", "cash": 14.64, "positions_value": 2.40, "total": 17.04},
+    {"date": "2026-04-12", "cash": 8.79, "positions_value": 5.75, "total": 14.54}
+  ],
   "trades": [
     {
       "id": 1,
