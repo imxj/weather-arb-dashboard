@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Arb Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0d1117; color: #e6edf3; padding: 20px; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  h1 { font-size: 1.8em; margin-bottom: 5px; }
+  .subtitle { color: #8b949e; margin-bottom: 20px; font-size: 0.9em; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; text-align: center; }
+  .card .label { font-size: 0.75em; color: #8b949e; text-transform: uppercase; }
+  .card .value { font-size: 1.6em; font-weight: 700; margin-top: 4px; }
+  .card .value.green { color: #3fb950; }
+  .card .value.red { color: #f85149; }
+  .card .value.yellow { color: #d29922; }
+  .card .value.blue { color: #58a6ff; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  th { background: #161b22; color: #8b949e; font-size: 0.75em; text-transform: uppercase; padding: 10px 8px; text-align: left; border-bottom: 1px solid #30363d; }
+  td { padding: 10px 8px; border-bottom: 1px solid #21262d; font-size: 0.85em; }
+  tr:hover { background: #161b22; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75em; font-weight: 600; }
+  .badge.won { background: #238636; color: #fff; }
+  .badge.lost { background: #da3633; color: #fff; }
+  .badge.pending { background: #9e6a03; color: #fff; }
+  .reason { font-size: 0.8em; color: #8b949e; max-width: 250px; }
+  .lesson { font-size: 0.75em; color: #f85149; font-style: italic; }
+  .section { margin-bottom: 24px; }
+  .section h2 { font-size: 1.2em; margin-bottom: 12px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+  .strategy-list { list-style: none; }
+  .strategy-list li { padding: 4px 0; font-size: 0.85em; }
+  .strategy-list li::before { content: "✅ "; }
+  .backtest-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .bt-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px; text-align: center; }
+  .bt-card .model { font-weight: 700; font-size: 1.1em; }
+  .bt-card .stat { font-size: 0.8em; color: #8b949e; margin-top: 4px; }
+  .chart-bar { height: 8px; border-radius: 4px; margin-top: 4px; }
+  .updated { text-align: center; color: #484f58; font-size: 0.75em; margin-top: 20px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🌤️ Weather Arb Dashboard</h1>
+  <p class="subtitle">Polymarket weather prediction trading bot — automated via OpenClaw + Finland VM</p>
+
+  <div class="cards" id="summary-cards"></div>
+
+  <div class="section">
+    <h2>📊 Trade History</h2>
+    <table id="trades-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date</th>
+          <th>Market</th>
+          <th>Shares</th>
+          <th>Cost</th>
+          <th>Forecast</th>
+          <th>Actual</th>
+          <th>P&L</th>
+          <th>Status</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>🧠 Strategy v2 (Backtest-Informed)</h2>
+    <ul class="strategy-list" id="strategy-list"></ul>
+  </div>
+
+  <div class="section">
+    <h2>📈 Model Backtest (10 days, 12 cities)</h2>
+    <div class="backtest-grid" id="backtest-grid"></div>
+  </div>
+
+  <p class="updated" id="updated"></p>
+</div>
+
+<script>
+fetch('data.json').then(r => r.json()).then(data => {
+  // Summary cards
+  const resolved = data.trades.filter(t => t.result !== 'PENDING');
+  const wins = resolved.filter(t => t.result === 'WON').length;
+  const losses = resolved.filter(t => t.result === 'LOST').length;
+  const pending = data.trades.filter(t => t.result === 'PENDING').length;
+  const realizedPnl = resolved.reduce((s, t) => s + (t.pnl || 0), 0);
+
+  const cards = [
+    { label: 'Balance', value: '$' + data.current_balance.toFixed(2), cls: 'blue' },
+    { label: 'Total P&L', value: (realizedPnl >= 0 ? '+' : '') + '$' + realizedPnl.toFixed(2), cls: realizedPnl >= 0 ? 'green' : 'red' },
+    { label: 'Win Rate', value: wins + '/' + (wins + losses), cls: wins > 0 ? 'green' : 'red' },
+    { label: 'Pending', value: pending, cls: 'yellow' },
+    { label: 'Total Trades', value: data.trades.length, cls: 'blue' },
+    { label: 'Starting $', value: '$' + data.starting_capital.toFixed(2), cls: 'blue' },
+  ];
+  const cardsEl = document.getElementById('summary-cards');
+  cards.forEach(c => {
+    cardsEl.innerHTML += `<div class="card"><div class="label">${c.label}</div><div class="value ${c.cls}">${c.value}</div></div>`;
+  });
+
+  // Trades table
+  const tbody = document.querySelector('#trades-table tbody');
+  data.trades.forEach(t => {
+    const forecast = Object.entries(t.forecast_at_entry).map(([k,v]) => `${k}:${v}`).join(' / ');
+    const statusCls = t.result === 'WON' ? 'won' : t.result === 'LOST' ? 'lost' : 'pending';
+    const pnlStr = t.pnl !== null ? (t.pnl >= 0 ? '+$' + t.pnl.toFixed(2) : '-$' + Math.abs(t.pnl).toFixed(2)) : '—';
+    const pnlCls = t.pnl > 0 ? 'color:#3fb950' : t.pnl < 0 ? 'color:#f85149' : '';
+    const lesson = t.lesson ? `<br><span class="lesson">📝 ${t.lesson}</span>` : '';
+    tbody.innerHTML += `<tr>
+      <td>${t.id}</td>
+      <td>${t.date}</td>
+      <td><strong>${t.market}</strong><br><span style="color:#8b949e;font-size:0.8em">${t.city}</span></td>
+      <td>${t.shares}</td>
+      <td>$${t.cost.toFixed(2)}</td>
+      <td style="font-size:0.75em">${forecast}</td>
+      <td>${t.actual !== null ? t.actual + '°' : '—'}</td>
+      <td style="${pnlCls};font-weight:700">${pnlStr}</td>
+      <td><span class="badge ${statusCls}">${t.result}</span></td>
+      <td><span class="reason">${t.reason}${lesson}</span></td>
+    </tr>`;
+  });
+
+  // Strategy
+  const stratEl = document.getElementById('strategy-list');
+  data.strategy_rules.forEach(r => {
+    stratEl.innerHTML += `<li>${r}</li>`;
+  });
+
+  // Backtest
+  const btEl = document.getElementById('backtest-grid');
+  const models = [
+    { name: 'ECMWF', emoji: '🏆', color: '#3fb950' },
+    { name: 'GFS', emoji: '🥈', color: '#58a6ff' },
+    { name: 'ICON', emoji: '🥉', color: '#d29922' },
+  ];
+  models.forEach(m => {
+    const d = data.backtest_summary[m.name];
+    btEl.innerHTML += `<div class="bt-card">
+      <div class="model">${m.emoji} ${m.name}</div>
+      <div class="stat">MAE: ${d.MAE}°</div>
+      <div class="stat">Match: ${d.match_rate}</div>
+      <div class="stat">H2H Wins: ${d.wins}</div>
+      <div class="chart-bar" style="background:${m.color};width:${parseFloat(d.wins)*2.5}%"></div>
+    </div>`;
+  });
+
+  document.getElementById('updated').textContent = 'Last updated: ' + data.last_updated;
+});
+</script>
+</body>
+</html>
