@@ -159,12 +159,12 @@ fetch('data.json').then(r => r.json()).then(data => {
   const realizedPnl = resolved.reduce((s, t) => s + (t.pnl || 0), 0);
 
   const cards = [
-    { label: 'Balance', value: '$' + data.current_balance.toFixed(2), cls: 'blue' },
+    { label: 'Portfolio', value: '$' + (data.portfolio_history && data.portfolio_history.length ? data.portfolio_history[data.portfolio_history.length-1].total.toFixed(2) : data.current_balance.toFixed(2)), cls: 'blue' },
+    { label: 'Cash', value: '$' + data.current_balance.toFixed(2), cls: 'green' },
+    { label: 'Positions', value: '$' + (data.portfolio_history && data.portfolio_history.length ? data.portfolio_history[data.portfolio_history.length-1].positions_value.toFixed(2) : '0.00'), cls: 'yellow' },
     { label: 'Total P&L', value: (realizedPnl >= 0 ? '+' : '') + '$' + realizedPnl.toFixed(2), cls: realizedPnl >= 0 ? 'green' : 'red' },
     { label: 'Win Rate', value: wins + '/' + (wins + losses), cls: wins > 0 ? 'green' : 'red' },
     { label: 'Pending', value: pending, cls: 'yellow' },
-    { label: 'Total Trades', value: data.trades.length, cls: 'blue' },
-    { label: 'Starting $', value: '$' + data.starting_capital.toFixed(2), cls: 'blue' },
   ];
   const cardsEl = document.getElementById('summary-cards');
   cards.forEach(c => {
