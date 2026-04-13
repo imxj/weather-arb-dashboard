@@ -66,7 +66,7 @@
       "pnl": -0.95,
       "reason": "GFS forecast near threshold but ICON/ECMWF disagreed. Pre-strategy trade.",
       "lesson": "Models disagreed \u2014 should have skipped",
-      "market_url": "https://polymarket.com/event/istanbul-highest-recorded-temperature-april-11"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-istanbul-on-april-11-2026"
     },
     {
       "id": 2,
@@ -90,7 +90,7 @@
       "pnl": -1.39,
       "reason": "Exact-match market. Forecast shifted from 16\u219218\u00b0C. Zero tolerance for drift.",
       "lesson": "Exact-match banned in v3 \u2014 1\u00b0C drift = total loss",
-      "market_url": "https://polymarket.com/event/milan-highest-recorded-temperature-april-12"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-milan-on-april-12-2026"
     },
     {
       "id": 3,
@@ -114,7 +114,7 @@
       "pnl": -0.49,
       "reason": "\u00b0F city, actual was 6\u00b0F higher than forecast. US cities too unpredictable.",
       "lesson": "\u00b0F cities have 2-3x more forecast error than \u00b0C",
-      "market_url": "https://polymarket.com/event/nyc-highest-recorded-temperature-april-10"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-nyc-on-april-10-2026"
     },
     {
       "id": 4,
@@ -138,7 +138,7 @@
       "pnl": null,
       "reason": "Violated v2 strategy (ECMWF disagreed at 23.3\u00b0C). Now ECMWF shifted to 24.1\u00b0C \u2014 all 3 models agree.",
       "lesson": "Ironically may win. Range market more forgiving.",
-      "market_url": "https://polymarket.com/event/seoul-highest-recorded-temperature-april-14"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-seoul-on-april-14-2026"
     },
     {
       "id": 5,
@@ -167,7 +167,7 @@
       "pnl": -1.65,
       "reason": "ECMWF was dead center at 15.0. Drifted to 13.5\u00b0C (-1.5\u00b0). Exact-match = zero tolerance.",
       "lesson": "Exact-match banned in v3",
-      "market_url": "https://polymarket.com/event/london-highest-recorded-temperature-april-13"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-london-on-april-13-2026"
     },
     {
       "id": 6,
@@ -196,7 +196,7 @@
       "pnl": -1.55,
       "reason": "ECMWF shifted from 13.0\u219211.7. Also price was 31\u00a2 (above 30\u00a2 cap in v3).",
       "lesson": "Exact-match banned + price too high in v3",
-      "market_url": "https://polymarket.com/event/paris-highest-recorded-temperature-april-13"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-paris-on-april-13-2026"
     },
     {
       "id": 7,
@@ -225,7 +225,7 @@
       "pnl": -1.05,
       "reason": "ECMWF drifted from 21.2\u219223.3 (+2.1\u00b0). All models now off target.",
       "lesson": "Exact-match banned in v3",
-      "market_url": "https://polymarket.com/event/chengdu-highest-recorded-temperature-april-13"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-chengdu-on-april-13-2026"
     },
     {
       "id": 8,
@@ -254,7 +254,7 @@
       "pnl": null,
       "reason": "ECMWF+GFS both round to 13\u00b0C. Last exact-match trade before v3 ban.",
       "lesson": "Would be banned under v3 (exact-match)",
-      "market_url": "https://polymarket.com/event/warsaw-highest-recorded-temperature-april-13"
+      "market_url": "https://polymarket.com/event/highest-temperature-in-warsaw-on-april-13-2026"
     }
   ],
   "strategy_version": "v3 (EV-focused, range-only)",
