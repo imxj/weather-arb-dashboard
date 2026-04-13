@@ -76,8 +76,9 @@
   </div>
 
   <div class="section">
-    <h2>🧠 Strategy v2 (Backtest-Informed)</h2>
+    <h2 id="strategy-title">🧠 Strategy</h2>
     <ul class="strategy-list" id="strategy-list"></ul>
+    <div id="strategy-changelog" style="margin-top:12px"></div>
   </div>
 
   <div class="section">
@@ -195,10 +196,20 @@ fetch('data.json').then(r => r.json()).then(data => {
   });
 
   // Strategy
+  document.getElementById('strategy-title').textContent = '🧠 ' + (data.strategy_version || 'Strategy');
   const stratEl = document.getElementById('strategy-list');
   data.strategy_rules.forEach(r => {
     stratEl.innerHTML += `<li>${r}</li>`;
   });
+
+  // Changelog
+  if (data.strategy_changelog) {
+    const clEl = document.getElementById('strategy-changelog');
+    clEl.innerHTML = '<h3 style="font-size:0.9em;color:#8b949e;margin-bottom:8px">📋 Changelog</h3>';
+    data.strategy_changelog.forEach(c => {
+      clEl.innerHTML += `<div style="font-size:0.8em;color:#8b949e;padding:4px 0;border-left:2px solid #30363d;padding-left:8px;margin-bottom:4px"><strong>${c.version}</strong> (${c.date}): ${c.changes}</div>`;
+    });
+  }
 
   // Backtest
   const btEl = document.getElementById('backtest-grid');

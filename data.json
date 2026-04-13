@@ -1,16 +1,17 @@
 {
-  "last_updated": "2026-04-12T14:40:00Z",
+  "last_updated": "2026-04-13T10:50:00Z",
   "starting_capital": 19.68,
-  "current_balance": 8.79,
-  "total_pnl": -6.64,
+  "current_balance": 6.79,
+  "total_pnl": -8.64,
   "win_rate": "0/4 (0%)",
-  "pending_trades": 4,
+  "pending_trades": 5,
   "portfolio_history": [
     {"date": "2026-04-08", "cash": 19.68, "positions_value": 0, "total": 19.68},
     {"date": "2026-04-09", "cash": 16.64, "positions_value": 1.50, "total": 18.14},
     {"date": "2026-04-10", "cash": 16.64, "positions_value": 0.80, "total": 17.44},
     {"date": "2026-04-11", "cash": 14.64, "positions_value": 2.40, "total": 17.04},
-    {"date": "2026-04-12", "cash": 8.79, "positions_value": 5.75, "total": 14.54}
+    {"date": "2026-04-12", "cash": 8.79, "positions_value": 5.75, "total": 14.54},
+    {"date": "2026-04-13", "cash": 6.79, "positions_value": 3.00, "total": 9.79}
   ],
   "trades": [
     {
@@ -29,7 +30,7 @@
       "result": "LOST",
       "payout": 0,
       "pnl": -0.95,
-      "reason": "GFS forecast near threshold but ICON/ECMWF disagreed. First trade before strategy update.",
+      "reason": "GFS forecast near threshold but ICON/ECMWF disagreed. Pre-strategy trade.",
       "lesson": "Models disagreed — should have skipped"
     },
     {
@@ -48,8 +49,8 @@
       "result": "LOST",
       "payout": 0,
       "pnl": -1.39,
-      "reason": "GFS forecast matched target but shifted to 20°C by resolution. Exact-match market too risky.",
-      "lesson": "3-4 day forecasts unreliable for exact-match"
+      "reason": "Exact-match market. Forecast shifted from 16→18°C. Zero tolerance for drift.",
+      "lesson": "Exact-match banned in v3 — 1°C drift = total loss"
     },
     {
       "id": 3,
@@ -67,8 +68,8 @@
       "result": "LOST",
       "payout": 0,
       "pnl": -0.49,
-      "reason": "Models agreed at entry but actual was 6°F higher. °F cities less predictable.",
-      "lesson": "°F cities have 2-3x more error than °C cities"
+      "reason": "°F city, actual was 6°F higher than forecast. US cities too unpredictable.",
+      "lesson": "°F cities have 2-3x more forecast error than °C"
     },
     {
       "id": 4,
@@ -86,8 +87,8 @@
       "result": "PENDING",
       "payout": null,
       "pnl": null,
-      "reason": "GFS+ICON agreed but ECMWF disagreed (23.3°C < 24). Violated updated strategy.",
-      "lesson": "Should not have traded — ECMWF must agree per strategy v2"
+      "reason": "Violated v2 strategy (ECMWF disagreed at 23.3°C). Now ECMWF shifted to 24.1°C — all 3 models agree.",
+      "lesson": "Ironically may win. Range market more forgiving."
     },
     {
       "id": 5,
@@ -101,12 +102,13 @@
       "price": 0.34,
       "cost": 1.65,
       "forecast_at_entry": {"ECMWF": 15.0, "GFS": 15.3, "ICON": 14.5},
+      "forecast_now": {"ECMWF": 13.5, "GFS": 14.0, "ICON": 13.0},
       "actual": null,
-      "result": "PENDING",
-      "payout": null,
-      "pnl": null,
-      "reason": "ECMWF dead center at 15.0°C, GFS agrees. ICON slightly low but rounds to 14. High confidence per backtest (ECMWF 68% match rate for °C).",
-      "lesson": null
+      "result": "LIKELY LOSS",
+      "payout": 0,
+      "pnl": -1.65,
+      "reason": "ECMWF was dead center at 15.0. Drifted to 13.5°C (-1.5°). Exact-match = zero tolerance.",
+      "lesson": "Exact-match banned in v3"
     },
     {
       "id": 6,
@@ -120,12 +122,13 @@
       "price": 0.31,
       "cost": 1.55,
       "forecast_at_entry": {"ECMWF": 13.0, "GFS": 12.9, "ICON": 13.9},
+      "forecast_now": {"ECMWF": 11.7, "GFS": 14.9, "ICON": 13.3},
       "actual": null,
-      "result": "PENDING",
-      "payout": null,
-      "pnl": null,
-      "reason": "ECMWF exactly 13.0°C, GFS rounds to 13. ICON rounds to 14 but ECMWF+GFS agree. Good setup per strategy v2.",
-      "lesson": null
+      "result": "LIKELY LOSS",
+      "payout": 0,
+      "pnl": -1.55,
+      "reason": "ECMWF shifted from 13.0→11.7. Also price was 31¢ (above 30¢ cap in v3).",
+      "lesson": "Exact-match banned + price too high in v3"
     },
     {
       "id": 7,
@@ -139,22 +142,50 @@
       "price": 0.21,
       "cost": 1.05,
       "forecast_at_entry": {"ECMWF": 21.2, "GFS": 20.9, "ICON": 21.8},
+      "forecast_now": {"ECMWF": 23.3, "GFS": 21.6, "ICON": 24.5},
+      "actual": null,
+      "result": "LIKELY LOSS",
+      "payout": 0,
+      "pnl": -1.05,
+      "reason": "ECMWF drifted from 21.2→23.3 (+2.1°). All models now off target.",
+      "lesson": "Exact-match banned in v3"
+    },
+    {
+      "id": 8,
+      "date": "2026-04-13",
+      "market": "Warsaw =13°C",
+      "resolve_date": "2026-04-13",
+      "city": "Warsaw",
+      "type": "=",
+      "target": "13°C",
+      "shares": 10,
+      "price": 0.20,
+      "cost": 2.00,
+      "forecast_at_entry": {"ECMWF": 13.2, "GFS": 13.0, "ICON": 13.6},
+      "forecast_now": {"ECMWF": 13.2, "GFS": 13.0, "ICON": 13.9},
       "actual": null,
       "result": "PENDING",
       "payout": null,
       "pnl": null,
-      "reason": "ECMWF 21.2 + GFS 20.9 both round to 21. ICON 21.8 rounds to 22 but 2/3 agree. °C city = higher accuracy.",
-      "lesson": null
+      "reason": "ECMWF+GFS both round to 13°C. Last exact-match trade before v3 ban.",
+      "lesson": "Would be banned under v3 (exact-match)"
     }
   ],
-  "strategy_version": "v2 (backtest-informed)",
+  "strategy_version": "v3 (EV-focused, range-only)",
   "strategy_rules": [
-    "ECMWF must agree (40% win rate, lowest MAE)",
+    "🚫 ONLY ≥/≤ range markets — exact-match (=X°C) is BANNED",
+    "💰 Price cap: only buy at ≤30¢ (positive EV at 68% ECMWF accuracy)",
+    "🏆 ECMWF must agree (40% win rate, lowest MAE)",
     "Only trade <24h to expiry",
     "Prefer °C cities (68% ECMWF match rate vs 25% for °F)",
     "Model agreement: ECMWF + 1 other = OK",
     "Max $2 per trade",
     "Avoid San Francisco"
+  ],
+  "strategy_changelog": [
+    {"version": "v1", "date": "2026-04-08", "changes": "Initial: 3-model agreement, <24h, range preferred"},
+    {"version": "v2", "date": "2026-04-12", "changes": "Backtest-informed: ECMWF weighted, °C preferred, SF banned"},
+    {"version": "v3", "date": "2026-04-13", "changes": "EV-focused: exact-match BANNED, price cap ≤30¢, range-only"}
   ],
   "backtest_summary": {
     "period": "10 days, 12 cities, 120 samples",
