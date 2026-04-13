@@ -69,6 +69,7 @@
           <th>P&L</th>
           <th>Status</th>
           <th>Reason</th>
+          <th>Link</th>
         </tr>
       </thead>
       <tbody></tbody>
@@ -192,6 +193,7 @@ fetch('data.json').then(r => r.json()).then(data => {
       <td style="${pnlCls};font-weight:700">${pnlStr}</td>
       <td><span class="badge ${statusCls}">${t.result}</span></td>
       <td><span class="reason">${t.reason}${lesson}</span></td>
+      <td>${t.market_url ? `<a href="${t.market_url}" target="_blank" style="color:#58a6ff;text-decoration:none;font-size:0.8em">🔗</a>` : '—'}</td>
     </tr>`;
   });
 

@@ -6,191 +6,301 @@
   "win_rate": "0/4 (0%)",
   "pending_trades": 5,
   "portfolio_history": [
-    {"date": "2026-04-08", "cash": 19.68, "positions_value": 0, "total": 19.68},
-    {"date": "2026-04-09", "cash": 16.64, "positions_value": 1.50, "total": 18.14},
-    {"date": "2026-04-10", "cash": 16.64, "positions_value": 0.80, "total": 17.44},
-    {"date": "2026-04-11", "cash": 14.64, "positions_value": 2.40, "total": 17.04},
-    {"date": "2026-04-12", "cash": 8.79, "positions_value": 5.75, "total": 14.54},
-    {"date": "2026-04-13", "cash": 6.79, "positions_value": 3.00, "total": 9.79}
+    {
+      "date": "2026-04-08",
+      "cash": 19.68,
+      "positions_value": 0,
+      "total": 19.68
+    },
+    {
+      "date": "2026-04-09",
+      "cash": 16.64,
+      "positions_value": 1.5,
+      "total": 18.14
+    },
+    {
+      "date": "2026-04-10",
+      "cash": 16.64,
+      "positions_value": 0.8,
+      "total": 17.44
+    },
+    {
+      "date": "2026-04-11",
+      "cash": 14.64,
+      "positions_value": 2.4,
+      "total": 17.04
+    },
+    {
+      "date": "2026-04-12",
+      "cash": 8.79,
+      "positions_value": 5.75,
+      "total": 14.54
+    },
+    {
+      "date": "2026-04-13",
+      "cash": 6.79,
+      "positions_value": 3.0,
+      "total": 9.79
+    }
   ],
   "trades": [
     {
       "id": 1,
       "date": "2026-04-08",
-      "market": "Istanbul ≥15°C",
+      "market": "Istanbul \u226515\u00b0C",
       "resolve_date": "2026-04-11",
       "city": "Istanbul",
-      "type": "≥",
-      "target": "15°C",
+      "type": "\u2265",
+      "target": "15\u00b0C",
       "shares": 35,
       "price": 0.027,
       "cost": 0.95,
-      "forecast_at_entry": {"GFS": 14.6, "ICON": 12.4, "ECMWF": 11.6},
+      "forecast_at_entry": {
+        "GFS": 14.6,
+        "ICON": 12.4,
+        "ECMWF": 11.6
+      },
       "actual": 12.0,
       "result": "LOST",
       "payout": 0,
       "pnl": -0.95,
       "reason": "GFS forecast near threshold but ICON/ECMWF disagreed. Pre-strategy trade.",
-      "lesson": "Models disagreed — should have skipped"
+      "lesson": "Models disagreed \u2014 should have skipped",
+      "market_url": "https://polymarket.com/event/istanbul-highest-recorded-temperature-april-11"
     },
     {
       "id": 2,
       "date": "2026-04-08",
-      "market": "Milan =16°C",
+      "market": "Milan =16\u00b0C",
       "resolve_date": "2026-04-12",
       "city": "Milan",
       "type": "=",
-      "target": "16°C",
+      "target": "16\u00b0C",
       "shares": 42.16,
       "price": 0.033,
       "cost": 1.39,
-      "forecast_at_entry": {"GFS": 16.3, "ICON": 16.3, "ECMWF": 16.3},
+      "forecast_at_entry": {
+        "GFS": 16.3,
+        "ICON": 16.3,
+        "ECMWF": 16.3
+      },
       "actual": 18,
       "result": "LOST",
       "payout": 0,
       "pnl": -1.39,
-      "reason": "Exact-match market. Forecast shifted from 16→18°C. Zero tolerance for drift.",
-      "lesson": "Exact-match banned in v3 — 1°C drift = total loss"
+      "reason": "Exact-match market. Forecast shifted from 16\u219218\u00b0C. Zero tolerance for drift.",
+      "lesson": "Exact-match banned in v3 \u2014 1\u00b0C drift = total loss",
+      "market_url": "https://polymarket.com/event/milan-highest-recorded-temperature-april-12"
     },
     {
       "id": 3,
       "date": "2026-04-09",
-      "market": "NYC 56-57°F",
+      "market": "NYC 56-57\u00b0F",
       "resolve_date": "2026-04-10",
       "city": "New York",
       "type": "range",
-      "target": "56-57°F",
+      "target": "56-57\u00b0F",
       "shares": 8,
       "price": 0.061,
       "cost": 0.49,
-      "forecast_at_entry": {"GFS": 57.7, "ICON": 57.2, "ECMWF": 56.6},
+      "forecast_at_entry": {
+        "GFS": 57.7,
+        "ICON": 57.2,
+        "ECMWF": 56.6
+      },
       "actual": 63,
       "result": "LOST",
       "payout": 0,
       "pnl": -0.49,
-      "reason": "°F city, actual was 6°F higher than forecast. US cities too unpredictable.",
-      "lesson": "°F cities have 2-3x more forecast error than °C"
+      "reason": "\u00b0F city, actual was 6\u00b0F higher than forecast. US cities too unpredictable.",
+      "lesson": "\u00b0F cities have 2-3x more forecast error than \u00b0C",
+      "market_url": "https://polymarket.com/event/nyc-highest-recorded-temperature-april-10"
     },
     {
       "id": 4,
       "date": "2026-04-11",
-      "market": "Seoul ≥24°C",
+      "market": "Seoul \u226524\u00b0C",
       "resolve_date": "2026-04-14",
       "city": "Seoul",
-      "type": "≥",
-      "target": "24°C",
+      "type": "\u2265",
+      "target": "24\u00b0C",
       "shares": 20,
-      "price": 0.10,
-      "cost": 2.00,
-      "forecast_at_entry": {"GFS": 26.2, "ECMWF": 23.3, "ICON": 25.5},
+      "price": 0.1,
+      "cost": 2.0,
+      "forecast_at_entry": {
+        "GFS": 26.2,
+        "ECMWF": 23.3,
+        "ICON": 25.5
+      },
       "actual": null,
       "result": "PENDING",
       "payout": null,
       "pnl": null,
-      "reason": "Violated v2 strategy (ECMWF disagreed at 23.3°C). Now ECMWF shifted to 24.1°C — all 3 models agree.",
-      "lesson": "Ironically may win. Range market more forgiving."
+      "reason": "Violated v2 strategy (ECMWF disagreed at 23.3\u00b0C). Now ECMWF shifted to 24.1\u00b0C \u2014 all 3 models agree.",
+      "lesson": "Ironically may win. Range market more forgiving.",
+      "market_url": "https://polymarket.com/event/seoul-highest-recorded-temperature-april-14"
     },
     {
       "id": 5,
       "date": "2026-04-12",
-      "market": "London =15°C",
+      "market": "London =15\u00b0C",
       "resolve_date": "2026-04-13",
       "city": "London",
       "type": "=",
-      "target": "15°C",
+      "target": "15\u00b0C",
       "shares": 5,
       "price": 0.34,
       "cost": 1.65,
-      "forecast_at_entry": {"ECMWF": 15.0, "GFS": 15.3, "ICON": 14.5},
-      "forecast_now": {"ECMWF": 13.5, "GFS": 14.0, "ICON": 13.0},
+      "forecast_at_entry": {
+        "ECMWF": 15.0,
+        "GFS": 15.3,
+        "ICON": 14.5
+      },
+      "forecast_now": {
+        "ECMWF": 13.5,
+        "GFS": 14.0,
+        "ICON": 13.0
+      },
       "actual": null,
       "result": "LIKELY LOSS",
       "payout": 0,
       "pnl": -1.65,
-      "reason": "ECMWF was dead center at 15.0. Drifted to 13.5°C (-1.5°). Exact-match = zero tolerance.",
-      "lesson": "Exact-match banned in v3"
+      "reason": "ECMWF was dead center at 15.0. Drifted to 13.5\u00b0C (-1.5\u00b0). Exact-match = zero tolerance.",
+      "lesson": "Exact-match banned in v3",
+      "market_url": "https://polymarket.com/event/london-highest-recorded-temperature-april-13"
     },
     {
       "id": 6,
       "date": "2026-04-12",
-      "market": "Paris =13°C",
+      "market": "Paris =13\u00b0C",
       "resolve_date": "2026-04-13",
       "city": "Paris",
       "type": "=",
-      "target": "13°C",
+      "target": "13\u00b0C",
       "shares": 5,
       "price": 0.31,
       "cost": 1.55,
-      "forecast_at_entry": {"ECMWF": 13.0, "GFS": 12.9, "ICON": 13.9},
-      "forecast_now": {"ECMWF": 11.7, "GFS": 14.9, "ICON": 13.3},
+      "forecast_at_entry": {
+        "ECMWF": 13.0,
+        "GFS": 12.9,
+        "ICON": 13.9
+      },
+      "forecast_now": {
+        "ECMWF": 11.7,
+        "GFS": 14.9,
+        "ICON": 13.3
+      },
       "actual": null,
       "result": "LIKELY LOSS",
       "payout": 0,
       "pnl": -1.55,
-      "reason": "ECMWF shifted from 13.0→11.7. Also price was 31¢ (above 30¢ cap in v3).",
-      "lesson": "Exact-match banned + price too high in v3"
+      "reason": "ECMWF shifted from 13.0\u219211.7. Also price was 31\u00a2 (above 30\u00a2 cap in v3).",
+      "lesson": "Exact-match banned + price too high in v3",
+      "market_url": "https://polymarket.com/event/paris-highest-recorded-temperature-april-13"
     },
     {
       "id": 7,
       "date": "2026-04-12",
-      "market": "Chengdu =21°C",
+      "market": "Chengdu =21\u00b0C",
       "resolve_date": "2026-04-13",
       "city": "Chengdu",
       "type": "=",
-      "target": "21°C",
+      "target": "21\u00b0C",
       "shares": 5,
       "price": 0.21,
       "cost": 1.05,
-      "forecast_at_entry": {"ECMWF": 21.2, "GFS": 20.9, "ICON": 21.8},
-      "forecast_now": {"ECMWF": 23.3, "GFS": 21.6, "ICON": 24.5},
+      "forecast_at_entry": {
+        "ECMWF": 21.2,
+        "GFS": 20.9,
+        "ICON": 21.8
+      },
+      "forecast_now": {
+        "ECMWF": 23.3,
+        "GFS": 21.6,
+        "ICON": 24.5
+      },
       "actual": null,
       "result": "LIKELY LOSS",
       "payout": 0,
       "pnl": -1.05,
-      "reason": "ECMWF drifted from 21.2→23.3 (+2.1°). All models now off target.",
-      "lesson": "Exact-match banned in v3"
+      "reason": "ECMWF drifted from 21.2\u219223.3 (+2.1\u00b0). All models now off target.",
+      "lesson": "Exact-match banned in v3",
+      "market_url": "https://polymarket.com/event/chengdu-highest-recorded-temperature-april-13"
     },
     {
       "id": 8,
       "date": "2026-04-13",
-      "market": "Warsaw =13°C",
+      "market": "Warsaw =13\u00b0C",
       "resolve_date": "2026-04-13",
       "city": "Warsaw",
       "type": "=",
-      "target": "13°C",
+      "target": "13\u00b0C",
       "shares": 10,
-      "price": 0.20,
-      "cost": 2.00,
-      "forecast_at_entry": {"ECMWF": 13.2, "GFS": 13.0, "ICON": 13.6},
-      "forecast_now": {"ECMWF": 13.2, "GFS": 13.0, "ICON": 13.9},
+      "price": 0.2,
+      "cost": 2.0,
+      "forecast_at_entry": {
+        "ECMWF": 13.2,
+        "GFS": 13.0,
+        "ICON": 13.6
+      },
+      "forecast_now": {
+        "ECMWF": 13.2,
+        "GFS": 13.0,
+        "ICON": 13.9
+      },
       "actual": null,
       "result": "PENDING",
       "payout": null,
       "pnl": null,
-      "reason": "ECMWF+GFS both round to 13°C. Last exact-match trade before v3 ban.",
-      "lesson": "Would be banned under v3 (exact-match)"
+      "reason": "ECMWF+GFS both round to 13\u00b0C. Last exact-match trade before v3 ban.",
+      "lesson": "Would be banned under v3 (exact-match)",
+      "market_url": "https://polymarket.com/event/warsaw-highest-recorded-temperature-april-13"
     }
   ],
   "strategy_version": "v3 (EV-focused, range-only)",
   "strategy_rules": [
-    "🚫 ONLY ≥/≤ range markets — exact-match (=X°C) is BANNED",
-    "💰 Price cap: only buy at ≤30¢ (positive EV at 68% ECMWF accuracy)",
-    "🏆 ECMWF must agree (40% win rate, lowest MAE)",
+    "\ud83d\udeab ONLY \u2265/\u2264 range markets \u2014 exact-match (=X\u00b0C) is BANNED",
+    "\ud83d\udcb0 Price cap: only buy at \u226430\u00a2 (positive EV at 68% ECMWF accuracy)",
+    "\ud83c\udfc6 ECMWF must agree (40% win rate, lowest MAE)",
     "Only trade <24h to expiry",
-    "Prefer °C cities (68% ECMWF match rate vs 25% for °F)",
+    "Prefer \u00b0C cities (68% ECMWF match rate vs 25% for \u00b0F)",
     "Model agreement: ECMWF + 1 other = OK",
     "Max $2 per trade",
     "Avoid San Francisco"
   ],
   "strategy_changelog": [
-    {"version": "v1", "date": "2026-04-08", "changes": "Initial: 3-model agreement, <24h, range preferred"},
-    {"version": "v2", "date": "2026-04-12", "changes": "Backtest-informed: ECMWF weighted, °C preferred, SF banned"},
-    {"version": "v3", "date": "2026-04-13", "changes": "EV-focused: exact-match BANNED, price cap ≤30¢, range-only"}
+    {
+      "version": "v1",
+      "date": "2026-04-08",
+      "changes": "Initial: 3-model agreement, <24h, range preferred"
+    },
+    {
+      "version": "v2",
+      "date": "2026-04-12",
+      "changes": "Backtest-informed: ECMWF weighted, \u00b0C preferred, SF banned"
+    },
+    {
+      "version": "v3",
+      "date": "2026-04-13",
+      "changes": "EV-focused: exact-match BANNED, price cap \u226430\u00a2, range-only"
+    }
   ],
   "backtest_summary": {
     "period": "10 days, 12 cities, 120 samples",
-    "ECMWF": {"MAE": 0.72, "match_rate": "53.3%", "wins": "40%"},
-    "GFS": {"MAE": 1.14, "match_rate": "30.0%", "wins": "18%"},
-    "ICON": {"MAE": 1.73, "match_rate": "36.7%", "wins": "17%"}
+    "ECMWF": {
+      "MAE": 0.72,
+      "match_rate": "53.3%",
+      "wins": "40%"
+    },
+    "GFS": {
+      "MAE": 1.14,
+      "match_rate": "30.0%",
+      "wins": "18%"
+    },
+    "ICON": {
+      "MAE": 1.73,
+      "match_rate": "36.7%",
+      "wins": "17%"
+    }
   }
 }
