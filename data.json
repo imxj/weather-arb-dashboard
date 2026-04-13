@@ -248,25 +248,25 @@
         "GFS": 13.0,
         "ICON": 13.9
       },
-      "actual": null,
-      "result": "PENDING",
-      "payout": null,
-      "pnl": null,
+      "actual": 14,
+      "result": "LOST",
+      "payout": 0,
+      "pnl": -2.0,
       "reason": "ECMWF+GFS both round to 13\u00b0C. Last exact-match trade before v3 ban.",
-      "lesson": "Would be banned under v3 (exact-match)",
+      "lesson": "Airport station (EPWA) was 14\u00b0C, not city center 13\u00b0C. v4 fix: use airport coords.",
       "market_url": "https://polymarket.com/event/highest-temperature-in-warsaw-on-april-13-2026"
     }
   ],
-  "strategy_version": "v3 (EV-focused, range-only)",
+  "strategy_version": "v4 (airport-corrected, EV-focused)",
   "strategy_rules": [
-    "\ud83d\udeab ONLY \u2265/\u2264 range markets \u2014 exact-match (=X\u00b0C) is BANNED",
-    "\ud83d\udcb0 Price cap: only buy at \u226430\u00a2 (positive EV at 68% ECMWF accuracy)",
-    "\ud83c\udfc6 ECMWF must agree (40% win rate, lowest MAE)",
-    "Only trade <24h to expiry",
-    "Prefer \u00b0C cities (68% ECMWF match rate vs 25% for \u00b0F)",
-    "Model agreement: ECMWF + 1 other = OK",
-    "Max $2 per trade",
-    "Avoid San Francisco"
+    "\ud83d\udea8 Use AIRPORT station coordinates, NOT city center (v4 critical fix)",
+    "\ud83d\udccb Read market resolution rules to find exact Wunderground station before trading",
+    "\ud83d\udeab ONLY \u2265/\u2264 range markets preferred \u2014 exact-match allowed \u226415\u00a2 & \u226412h only",
+    "\ud83d\udcb0 Range price cap: \u226425\u00a2 | Exact-match price cap: \u226415\u00a2",
+    "\ud83c\udfc6 2/3 models agree (using airport coords)",
+    "Only trade \u226448h to expiry (range) / \u226412h (exact)",
+    "Prefer \u00b0C cities, avoid \u00b0F unless all 3 agree, avoid SF",
+    "Max $2 per trade"
   ],
   "strategy_changelog": [
     {
@@ -283,6 +283,11 @@
       "version": "v3",
       "date": "2026-04-13",
       "changes": "EV-focused: exact-match BANNED, price cap \u226430\u00a2, range-only"
+    },
+    {
+      "version": "v4",
+      "date": "2026-04-13",
+      "changes": "CRITICAL: use airport station coords (not city center). Warsaw 13\u219214\u00b0C, Seoul city vs Incheon airport 5\u00b0C gap. Station mapping file added."
     }
   ],
   "backtest_summary": {
